@@ -28,15 +28,15 @@ Route::controller(PagesController::class)->group(function (){
     Route::get('/rent', 'showRent')->name('rent');
     Route::get('/termsofuse', 'showTermsofUse')->name('termsofUse');
     Route::get('/crm', 'showCrm')->name('crm');
-    Route::get('/crm/{userId}', 'showUserProfile')->name('userProfile');
-    Route::get('/crm/{userId}/edit', 'editUserProfile')->name('editUserProfile');
+    Route::get('/crm/{clientId}', 'showClientProfile')->name('clientProfile');
+    Route::get('/crm/{clientId}/edit', 'editClientProfile')->name('editClient');
     Route::get('/forms/iconsultform', 'showIconsultForm')->name('iconsultForm');
 });
 
 Route::controller(FormController::class)->group(function (){
     Route::post('/forms/createOrder', 'createOrder')->name('createOrder');
-    Route::post('/forms/{userId}/updateUser', 'updateUser')->name('updateUser');
-    Route::post('/forms/{userId}/deleteUser', 'deleteUser')->name('deleteUser');
+    Route::post('/forms/{clientId}/updateClient', 'updateClient')->name('updateClient');
+    Route::post('/forms/{clientId}/deleteClient', 'deleteClient')->name('deleteClient');
 });
 
 Route::controller(RegisterController::class)->group(function (){

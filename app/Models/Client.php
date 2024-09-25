@@ -10,7 +10,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class Client extends Authenticatable
 {
     //Hasfactoru - класс, который даст модели работоать с фабриками
     //SoftDeletes даст работу с мягким удалением))
@@ -99,15 +99,15 @@ class User extends Authenticatable
     public function orders()
     {
 // Это примитивный аналог метода hasMany <-> belongsTo
-// Здесь мы обращаемся к модели Order. В принадлежащей ей таблице есть поле "user_id". Мы выводим методом get() все записи, в которых
-// "$this->id"- то есть ID этой записи в таблице users.
-//        return Order::where('user_id', $this->id)->get();
+// Здесь мы обращаемся к модели Order. В принадлежащей ей таблице есть поле "client_id". Мы выводим методом get() все записи, в которых
+// "$this->id"- то есть ID этой записи в таблице clients.
+//        return Order::where('client_id', $this->id)->get();
 
 // Нужно обратить внимание, что теперь выводить запись от модели Orders нужно, обращаясь к этой конструкции
-//не как к методу - $user->orders(), а как к свойству - $user->orders.
-// Как работает метод hasMany()? Он обращается к объекту класса Order, найдет там поле-вторичный ключ user_id.
-// Если какие-то значения этого поля совпадают с первичным ключом таблицы users, то эти записи будут доступны к выводу
-// orders->user_id == $this->id
+//не как к методу - $client->orders(), а как к свойству - $client->orders.
+// Как работает метод hasMany()? Он обращается к объекту класса Order, найдет там поле-вторичный ключ client_id.
+// Если какие-то значения этого поля совпадают с первичным ключом таблицы clients, то эти записи будут доступны к выводу
+// orders->client_id == $this->id
         return $this->hasMany(Order::class);
 
 

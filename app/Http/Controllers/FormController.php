@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
-use App\Models\User;
+use App\Models\Client;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -19,28 +19,28 @@ class FormController extends Controller
         // phoneConvert() - мой собственный метод внутри реквеста SubmitRequest.
         $phone = $request->phoneConvert($request->input('phone'));
         // Проверяет, есть ли в БД юзер с номером телефона из переменной выше и делает вызов
-        // экземпляра модели User для дальнейшего взаимодействия внутри метода. Нельзя назвать переменную
-        // привычным именем $user, потому что это имя используется дальше в ветке else.
+        // экземпляра модели Client для дальнейшего взаимодействия внутри метода. Нельзя назвать переменную
+        // привычным именем $client, потому что это имя используется дальше в ветке else.
         // метод first() вызывает конкретную запись для взаимодействия, в отличие от get(), который выводит
         // все записи из таблицы этой модели
-        $userFind = User::where('phone', $phone)->first();
+        $clientFind = Client::where('phone', $phone)->first();
 
 
-        //Если в переменной userFind есть экземпляр (он нашелся по номеру телефона), то данные обновляются
-        // по образу и подобию метода updateUser() ниже. Получилось использовать не полную копию - поле
-        // 'user_id' получает id уже существующей записи, найденной в БД, а не нового созданного юзера
+        //Если в переменной clientFind есть экземпляр (он нашелся по номеру телефона), то данные обновляются
+        // по образу и подобию метода updateClient() ниже. Получилось использовать не полную копию - поле
+        // 'client_id' получает id уже существующей записи, найденной в БД, а не нового созданного юзера
         // как в ветке else.
-        if ($userFind !== null) {
+        if ($clientFind !== null) {
 
-            $userFind->update([
+            $clientFind->update([
                 'name' => $request->input('name'),
                 'email' => $request->input('email'),
                 'ip' => $request->ip()
             ]);
 
-            // Создается новый заказ, где в поле 'user_id' заносится id-шник из найденной в БД записи.
+            // Создается новый заказ, где в поле 'client_id' заносится id-шник из найденной в БД записи.
             $order = Order::create([
-                'user_id' => $userFind->id,
+                'client_id' => $clientFind->id,
                 'title' => $request->input('title'),
                 'demand' => $request->input('demand'),
                 'date' => $request->input('date'),
@@ -51,7 +51,7 @@ class FormController extends Controller
         } else {
 
             // Если номер телефона оказался уникален, то создается новый юзер методом create
-            $user = User::create([
+            $client = Client::create([
                 'name' => $request->input('name'),
                 'phone' => $request->input('phone'),
                 'email' => $request->input('email'),
@@ -60,7 +60,7 @@ class FormController extends Controller
 
             // Создается и новый заказ, привязанный к свеже-созданному прямо выше юзеру.
             $order = Order::create([
-                'user_id' => $user->id,
+                'client_id' => $client->id,
                 'title' => $request->input('title'),
                 'demand' => $request->input('demand'),
                 'date' => $request->input('date'),
@@ -73,20 +73,20 @@ class FormController extends Controller
         return redirect()->route('index');
     }
 
-    public function updateUser(UpdateRequest $request, User $userId): RedirectResponse
+    public function updateClient(UpdateRequest $request, Client $clientId): RedirectResponse
     {
-        $userId->update([
+        $clientId->update([
             'name' => $request->input('name'),
             'phone' => $request->input('phone'),
             'email' => $request->input('email')
         ]);
 
-        return redirect()->route('userProfile', $userId);
+        return redirect()->route('clientProfile', $clientId);
     }
 
-    public function deleteUser(User $userId): RedirectResponse
+    public function deleteClient(Client $clientId): RedirectResponse
     {
-        $userId->delete();
+        $clientId->delete();
         return redirect()->route('crm');
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\Client;
 use App\Models\Order;
 
 class PagesController extends Controller
@@ -60,28 +60,28 @@ class PagesController extends Controller
 
     public function showCrm()
     {
-        $users = User::all()->sortByDesc('id');
+        $clients = Client::all()->sortByDesc('id');
 
         return view('crm', [
-            'users' => $users,
+            'clients' => $clients,
         ]);
     }
 
-    public function showUserProfile(User $userId)
+    public function showClientProfile(Client $clientId)
     {
-//        $user = User::findOrFail($userId);
+//        $client = Client::findOrFail($clientId);
 
-        return view('pages.userProfile', [
-            'user' => $userId
+        return view('pages.clientProfile', [
+            'client' => $clientId
         ]);
     }
 
-    public function editUserProfile(User $userId)
+    public function editClientProfile(Client $clientId)
     {
-//        $user = User::findOrFail($userId);
+//        $client = Client::findOrFail($clientId);
 
-        return view('functional pages.editUserProfile', [
-            'user' => $userId
+        return view('functional pages.editClientProfile', [
+            'client' => $clientId
         ]);
     }
 }

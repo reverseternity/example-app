@@ -7,8 +7,8 @@
     <form action="{{ route('createOrder') }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
-            <label for="textarea1" class="form-label">Имя</label>
-            <input type="text" name="name" value="{{ old('name') }}" class="form-control @error('name') is-invalid @enderror" id="textarea1" rows="1" placeholder="Как к Вам обращаться?">
+            <label for="name" class="form-label">Имя</label>
+            <input type="text" name="name" value="{{ old('name') }}" class="form-control @error('name') is-invalid @enderror" rows="1" placeholder="Как к Вам обращаться?">
             @error('name')
             <div id="validationServer03Feedback" class="invalid-feedback">
                 {{ $message }}
@@ -16,7 +16,7 @@
             @enderror
         </div>
         <div class="mb-3">
-            <label for="input1" class="form-label">Ваш телефон</label>
+            <label for="phone" class="form-label">Ваш телефон</label>
             <div class="input-group flex-nowrap">
                 <span class="input-group-text" id="addon-wrapping">📲</span>
                 <input type="text" name="phone" value="{{ old('phone', '+') }}" class="form-control @error('phone') is-invalid @enderror" placeholder="Введите телефон в международном формате" aria-label="Phone" aria-describedby="addon-wrapping">
@@ -28,8 +28,8 @@
             </div>
         </div>
         <div class="mb-3">
-            <label for="textarea2" class="form-label">Запрос</label>
-            <textarea type="text" name="demand" class="form-control @error('demand') is-invalid @enderror" id="textarea2" rows="3" placeholder="Сформулируйте Ваш запрос">{{ old('demand') }}</textarea>
+            <label for="demand" class="form-label">Запрос</label>
+            <textarea type="text" name="demand" class="form-control @error('demand') is-invalid @enderror" rows="3" placeholder="Сформулируйте Ваш запрос">{{ old('demand') }}</textarea>
             @error('demand')
             <div id="validationServer03Feedback" class="invalid-feedback">
                 {{ $message }}
@@ -55,13 +55,13 @@
         <div class="mb-3">
             <label for="option1" class="form-label">Формат консультации</label>
             <div>
-                <input type="radio" name="contact" value="personally" class="btn-check" id="option1" autocomplete="off">
+                <input type="radio" name="contact" value="personally" id="option1" class="btn-check" autocomplete="off">
                 <label class="btn" for="option1">Лично</label>
 
-                <input type="radio" name="contact" value="call" class="btn-check" id="option2" autocomplete="off" checked>
+                <input type="radio" name="contact" value="call" id="option2" class="btn-check" autocomplete="off" checked>
                 <label class="btn" for="option2">Звонок</label>
 
-                <input type="radio" name="contact" value="videocall" class="btn-check" id="option3" autocomplete="off">
+                <input type="radio" name="contact" value="videocall"id="option3" class="btn-check" autocomplete="off">
                 <label class="btn" for="option3">Видеозвонок</label>
             </div>
         </div>
