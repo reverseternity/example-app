@@ -31,7 +31,11 @@
                 </li>
             </ul>
             <form class="d-flex" role="search">
-                <a href="{{ route('loginForm') }}" class="m-lg-1">Login</a>
+{{--                @if(auth()->guest())--}}
+{{--                <a href="{{ route('loginForm') }}"><button class="btn btn-outline-secondary-secondary">войти в систему</button></a>--}}
+{{--                @else--}}
+{{--                    <a href="{{ route('index') }}"><button class="btn btn-light">{{ auth()->name }}</button></a>--}}
+{{--                @endif--}}
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>

@@ -5,18 +5,16 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-//use Illuminate\Foundation\Auth\User as Authenticatable;
-//use Illuminate\Notifications\Notifiable;
-//use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
-class Client extends Model
+class User extends Authenticatable
 {
     //Hasfactoru - класс, который даст модели работоать с фабриками
     //SoftDeletes даст работу с мягким удалением))
-    use HasFactory, SoftDeletes;
-//    use Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -26,8 +24,9 @@ class Client extends Model
     protected $fillable = [
         'name',
         'phone',
-        'ip',
         'email',
+        'password',
+
     ];
 
     /**
@@ -36,6 +35,8 @@ class Client extends Model
      * @var array<int, string>
      */
     protected $hidden = [
+        'password',
+        'remember_token',
     ];
 
     /**
@@ -44,6 +45,8 @@ class Client extends Model
      * @var array<string, string>
      */
     protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
     ];
 
     //Это Мутаторы. Они преобразуют все значения поля name, проходящих через модель.
@@ -91,21 +94,5 @@ class Client extends Model
             set: fn ($value) => '+' . preg_replace('/[^0-9]/', '', $value)
         );
     }
-
-    public function orders()
-    {
-// Это примитивный аналог метода hasMany <-> belongsTo
-// Здесь мы обращаемся к модели Order. В принадлежащей ей таблице есть поле "client_id". Мы выводим методом get() все записи, в которых
-// "$this->id"- то есть ID этой записи в таблице clients.
-//        return Order::where('client_id', $this->id)->get();
-
-// Нужно обратить внимание, что теперь выводить запись от модели Orders нужно, обращаясь к этой конструкции
-//не как к методу - $client->orders(), а как к свойству - $client->orders.
-// Как работает метод hasMany()? Он обращается к объекту класса Order, найдет там поле-вторичный ключ client_id.
-// Если какие-то значения этого поля совпадают с первичным ключом таблицы clients, то эти записи будут доступны к выводу
-// orders->client_id == $this->id
-        return $this->hasMany(Order::class);
-
-
-    }
 }
+

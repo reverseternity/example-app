@@ -11,7 +11,22 @@ class RegisterRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
+    }
+
+    // Laravel docs-Validation-# Preparing Input for Validation
+    // С помощью этой функции можно изменить введенные пользователем данные до валидации. В моем случае функция
+    // конвертирует полученный от пользователя номер телефона в подходящий для поиска в БД формат.
+    // Удаляет все символы кроме цифр из ввода, затем добавляет + в начало.
+    // Скопировано из мутатора phone() из модели Client и переделано.
+    protected function prepareForValidation(): void
+    {
+        $phone = $this->request->get('phone');
+        $converted = '+' . preg_replace('/[^0-9]/', '', $phone);
+
+        $this->merge([
+            'phone' => $converted,
+        ]);
     }
 
     /**
@@ -23,11 +38,29 @@ class RegisterRequest extends FormRequest
     {
         return [
             'name' => ['required', 'max:30'],
-            'phone' => ['required', 'min:6', 'max:30'],
+            // правило валидации 'unique:{имя таблицы},{имя поля}' работает интуитивно - оно проверяет уникальность вводимых данных
+            // в указанной таблице и её поле. Была проблема - правило проверяет введённые данные с содержанием записи в БД.
+            // А записи в БД обработаны мутатором и могут не совпадать с тем, что ввел пользователь при регистрации.
+            // Для этого используется функция prepareForValidation() выше.
+            'phone' => ['required', 'min:6', 'max:30', 'unique:users,phone'],
             // Правило 'confirmed' работает классно. Оно проверяет совпадение поля {имя поля}_confirmed с
             // основным password. {имя поля} должно совпадать с основным.
             'password' => ['required', 'min:6', 'max:30', 'confirmed']
 
         ];
     }
+
+//    public function getValidatorInstance()
+//    {
+//        $this->phoneConvert();
+//
+//        parent::getValidatorInstance();
+//    }
+//
+//    protected function phoneConvert()
+//    {
+//        $this->request->set([
+//            'phone' => '+' . preg_replace('/[^0-9]/', '', $this->request->get('phone'))
+//        ]);
+//    }
 }
