@@ -6,6 +6,11 @@
     </div>
     <form action="{{ route('loginAction') }}" method="post">
         @csrf
+        @error('auth_error')
+            <div class="alert alert-danger" role="alert">
+                {{ $message }}
+            </div>
+        @enderror
         <div class="mb-3">
             <label for="phone" class="form-label">Ваш телефон</label>
             <input type="text" name="phone" value="{{ old('phone', '+')}}" class="form-control @error('phone') is-invalid @enderror" rows="1" placeholder="Введите телефон в международном формате">

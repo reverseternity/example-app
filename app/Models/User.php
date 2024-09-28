@@ -34,6 +34,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    // Эти поля не будут выводиться, когда мы получим экземпляр модели.
     protected $hidden = [
         'password',
         'remember_token',
@@ -44,6 +45,7 @@ class User extends Authenticatable
      *
      * @var array<string, string>
      */
+    // Каст 'hashed' делает пароль захешированным. Не нужно отдельно прописывать хеш в контроллере.
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',

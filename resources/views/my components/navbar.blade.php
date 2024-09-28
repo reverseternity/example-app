@@ -24,21 +24,26 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('crm') }}">CRM</a>
+                    <a class="nav-link" href="{{ route('index') }}">qqqwww</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link disabled" aria-disabled="true">Disabled</a>
                 </li>
             </ul>
-            <form class="d-flex" role="search">
-{{--                @if(auth()->guest())--}}
-{{--                <a href="{{ route('loginForm') }}"><button class="btn btn-outline-secondary-secondary">войти в систему</button></a>--}}
-{{--                @else--}}
-{{--                    <a href="{{ route('index') }}"><button class="btn btn-light">{{ auth()->name }}</button></a>--}}
-{{--                @endif--}}
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+            <div class="d-flex" role="search">
+                @if(auth()->guest())
+                    <a href="{{ route('loginForm') }}"><button class="btn btn-outline-secondary">войти в систему</button></a>
+                @else
+                    <div class="mx-2"><a href="{{ route('crm') }}"><button class="btn btn-outline-primary">CRM</button></a></div>
+                    <div class="ms-2"><a href="{{ route('index') }}"><button class="btn btn-outline-success">👤 {{ auth()->user()->name }}</button></a></div>
+                    <div class="ms-2">
+                        <form action="{{ route('logoutAction') }}" method="post">
+                            @csrf
+                            <button class="btn btn-outline-danger" type="submit">выйти из системы</button>
+                        </form>
+                    </div>
+                @endif
+            </div>
         </div>
     </div>
 </nav>

@@ -31,6 +31,7 @@ Route::controller(PagesController::class)->group(function (){
     Route::get('/crm/{clientId}', 'showClientProfile')->name('clientProfile');
     Route::get('/crm/{clientId}/edit', 'editClientProfile')->name('editClient');
     Route::get('/forms/iconsultform', 'showIconsultForm')->name('iconsultForm');
+    Route::get('/messagepage', 'showMessage')->name('messagePage');
 });
 
 Route::controller(FormController::class)->group(function (){
@@ -47,4 +48,5 @@ Route::controller(RegisterController::class)->group(function (){
 Route::controller(LoginController::class)->group(function (){
     Route::get('/login', 'showIndex')->name('loginForm');
     Route::post('/login', 'login')->name('loginAction');
+    Route::post('/logout', 'logout')->name('logoutAction');
 });

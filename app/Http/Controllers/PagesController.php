@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Auth\Authenticatable;
 use Illuminate\Http\Request;
 use App\Models\Client;
 use App\Models\Order;
@@ -45,7 +46,8 @@ class PagesController extends Controller
 
     public function showRent()
     {
-        return view('pages.rent');
+//        return view('pages.rent');
+        dd(auth());
     }
 
     public function showTermsofUse()
@@ -83,5 +85,10 @@ class PagesController extends Controller
         return view('functional pages.editClientProfile', [
             'client' => $clientId
         ]);
+    }
+
+    public function showMessage()
+    {
+        return view('functional pages.messagePage');
     }
 }

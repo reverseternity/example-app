@@ -15,6 +15,8 @@ class RegisterRequest extends FormRequest
     }
 
     // Laravel docs-Validation-# Preparing Input for Validation
+    // Так как записи в БД у меня обработаны мутатором, введенные пользователем в форму данные могут не совпадать с БД - из-за этого валидация
+    // 'unique' не работает. Поэтому здесь используется функция prepareForValidation.
     // С помощью этой функции можно изменить введенные пользователем данные до валидации. В моем случае функция
     // конвертирует полученный от пользователя номер телефона в подходящий для поиска в БД формат.
     // Удаляет все символы кроме цифр из ввода, затем добавляет + в начало.
@@ -49,18 +51,4 @@ class RegisterRequest extends FormRequest
 
         ];
     }
-
-//    public function getValidatorInstance()
-//    {
-//        $this->phoneConvert();
-//
-//        parent::getValidatorInstance();
-//    }
-//
-//    protected function phoneConvert()
-//    {
-//        $this->request->set([
-//            'phone' => '+' . preg_replace('/[^0-9]/', '', $this->request->get('phone'))
-//        ]);
-//    }
 }

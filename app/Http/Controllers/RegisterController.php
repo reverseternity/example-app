@@ -31,7 +31,9 @@ class RegisterController extends Controller
         //]
         User::create($request->validated());
 
-        return redirect()->route('index');
+        // метод with(['имя сообщения' => 'содержание']) позволяет передать в текущую сессию сообщение, которое во вьюхе можно будет вывести
+        // с помощью вставки c хелпером session(): @if(session()->has('имя сообщения')) {{ session()->get('содержание') @endif.
+        return redirect()->route('messagePage')->with([ 'success' => 'Заявка на регистрацию отправлена! Вы сможете войти в систему после одобрения администратором.']);
 
 
     }
