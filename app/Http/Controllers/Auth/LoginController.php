@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
-use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -38,8 +37,8 @@ class LoginController extends Controller
 // Сначала функция находит юзера по введенному телефону. Затем проверяет его поле 'approved'
 // если пользователь неодобрен ( approved == false), выведется редирект назад с ошибкой.
         $userFind = User::where('phone', $request->validated('phone'))->first();
-
-        if ($userFind->approved) {
+//        dd($userFind);
+        if ($userFind && $userFind->approved) {
 // Вот простой и лаконичный метод attempt() класса Auth, который делает всю работу, написанную выше))
 // функция validated() возвращает массив из полей, которые прошли валидацию. По этим данным метод attempt() сам находит экземпляр модели
 // и дает ему авторизацию. Так же, как выше второй аргумент - это "Запомнить пользователя". Я делаю автоматически true.
@@ -51,7 +50,7 @@ class LoginController extends Controller
                 return redirect()->back()->withErrors(['auth_error' => 'Неверные данные. Проверьте правильность телефона или пароля']);
             }
         } else {
-            return redirect()->route('messagePage')->withErrors(['auth_error' => 'Ошибка. Вы сможете войти в систему после одобрения администратором.']);
+            return redirect()->route('messagePage')->withErrors(['auth_error' => 'Ошибка. Вы сможете войти в систему после регистрации и одобрения администратором.']);
         }
     }
 

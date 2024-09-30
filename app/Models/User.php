@@ -48,6 +48,7 @@ class User extends Authenticatable
     // Каст 'hashed' делает пароль захешированным. Не нужно отдельно прописывать хеш в контроллере.
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'approved' => 'boolean',
         'password' => 'hashed',
     ];
 

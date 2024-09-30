@@ -2,10 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Auth\Authenticatable;
 use Illuminate\Http\Request;
-use App\Models\Client;
-use App\Models\Order;
 
 class PagesController extends Controller
 {
@@ -46,8 +43,7 @@ class PagesController extends Controller
 
     public function showRent()
     {
-//        return view('pages.rent');
-        dd(auth());
+        return view('pages.rent');
     }
 
     public function showTermsofUse()
@@ -58,33 +54,6 @@ class PagesController extends Controller
     public function showIconsultForm()
     {
         return view('form pages.individualConsultForm');
-    }
-
-    public function showCrm()
-    {
-        $clients = Client::all()->sortByDesc('id');
-
-        return view('crm', [
-            'clients' => $clients,
-        ]);
-    }
-
-    public function showClientProfile(Client $clientId)
-    {
-//        $client = Client::findOrFail($clientId);
-
-        return view('pages.clientProfile', [
-            'client' => $clientId
-        ]);
-    }
-
-    public function editClientProfile(Client $clientId)
-    {
-//        $client = Client::findOrFail($clientId);
-
-        return view('functional pages.editClientProfile', [
-            'client' => $clientId
-        ]);
     }
 
     public function showMessage()
