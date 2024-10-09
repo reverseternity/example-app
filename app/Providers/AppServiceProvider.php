@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Http\Resources\Api\ClientProfileResource;
+use App\Http\Resources\Api\CrmResource;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +21,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        CrmResource::withoutWrapping();
+        ClientProfileResource::withoutWrapping();
     }
 }

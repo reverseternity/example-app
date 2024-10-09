@@ -97,5 +97,13 @@ class User extends Authenticatable
             set: fn ($value) => '+' . preg_replace('/[^0-9]/', '', $value)
         );
     }
+
+// При использовании laravel sanctum свойство tokens(), возвращающее токены, принадлежащие пользователю, зарезервировано санктумом.
+// Поэтому мы не должны ему мешать.
+
+//    public function tokens()
+//    {
+//        return $this->hasMany(Token::class);
+//    }
 }
 

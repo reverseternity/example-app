@@ -67,26 +67,8 @@ class FormController extends Controller
                 'time' => $request->input('time'),
                 'contact' => $request->input('contact'),
             ]);
-
         }
 
         return redirect()->route('index');
-    }
-
-    public function updateClient(UpdateRequest $request, Client $clientId): RedirectResponse
-    {
-        $clientId->update([
-            'name' => $request->input('name'),
-            'phone' => $request->input('phone'),
-            'email' => $request->input('email')
-        ]);
-
-        return redirect()->route('clientProfile', $clientId);
-    }
-
-    public function deleteClient(Client $clientId): RedirectResponse
-    {
-        $clientId->delete();
-        return redirect()->route('crm');
     }
 }

@@ -37,7 +37,6 @@ class LoginController extends Controller
 // Сначала функция находит юзера по введенному телефону. Затем проверяет его поле 'approved'
 // если пользователь неодобрен ( approved == false), выведется редирект назад с ошибкой.
         $userFind = User::where('phone', $request->validated('phone'))->first();
-//        dd($userFind);
         if ($userFind && $userFind->approved) {
 // Вот простой и лаконичный метод attempt() класса Auth, который делает всю работу, написанную выше))
 // функция validated() возвращает массив из полей, которые прошли валидацию. По этим данным метод attempt() сам находит экземпляр модели

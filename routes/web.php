@@ -33,9 +33,7 @@ Route::controller(PagesController::class)->group(function (){
 });
 
 Route::controller(FormController::class)->group(function (){
-    Route::post('/forms/createOrder', 'createOrder')->name('createOrder');
-    Route::post('/forms/{clientId}/updateClient', 'updateClient')->name('updateClient');
-    Route::post('/forms/{clientId}/deleteClient', 'deleteClient')->name('deleteClient');
+    Route::post('/forms/createorder', 'createOrder')->name('createOrder');
 });
 
 // Эту группу отличает использование посредника 'auth' Он позволяет открывать эти страницы только авторизованным пользователям.
@@ -44,6 +42,8 @@ Route::controller(StaffController::class)->middleware('auth')->group(function ()
     Route::get('/crm', 'showCrm')->name('crm');
     Route::get('/crm/{clientId}', 'showClientProfile')->name('clientProfile');
     Route::get('/crm/{clientId}/edit', 'editClientProfile')->name('editClient');
+    Route::post('/forms/{clientId}/updateClient', 'updateClient')->name('updateClient');
+    Route::post('/forms/{clientId}/deleteClient', 'deleteClient')->name('deleteClient');
 });
 
 // Посредники можно применять к группам маршрутов. Их действие будет распостраняться на все маршруты в группе.
