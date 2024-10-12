@@ -12,13 +12,13 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($users as $user)
+            @foreach($clients as $client)
             <tr>
-                <th scope="row">{{ $user->id }}</th>
-                <td>{{ $user->name }}</td>
-                <td>{{ $user->phone }}</td>
-                <td>{{ $user->email }}</td>
-                <td><a href="{{ route('userProfile', ['userId' => $user->id]) }}">профиль клиента</a></td>
+                <th scope="row">{{ $client->id }}</th>
+                <td>{{ $client->name }}</td>
+                <td>{{ $client->phone }}</td>
+                <td>{{ $client->email }}</td>
+                <td><a href="{{ route('clientProfile', ['clientId' => $client->id]) }}">профиль клиента</a></td>
             </tr>
             @endforeach
             </tbody>

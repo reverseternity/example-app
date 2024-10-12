@@ -12,6 +12,12 @@ class Authenticate extends Middleware
      */
     protected function redirectTo(Request $request): ?string
     {
-        return $request->expectsJson() ? null : route('login');
+// Здесь мы ставим условие - Если в префиксе маршрута есть 'api', то вывод функции меняется на другой редирект.
+        if (str_contains($request->route()->getPrefix(), 'api')) {
+//            return response()->json(['message' => 'No acess. User should be authorised'], 403);
+            return $request->expectsJson() ? null : route('loginForm');
+        }
+
+        return $request->expectsJson() ? null : route('loginForm');
     }
 }

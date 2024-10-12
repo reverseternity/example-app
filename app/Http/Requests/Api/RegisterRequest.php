@@ -1,10 +1,8 @@
 <?php
 
-namespace App\Http\Requests\Auth;
+namespace App\Http\Requests\Api;
 
-use Illuminate\Foundation\Http\FormRequest;
-
-class RegisterRequest extends FormRequest
+class RegisterRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,13 +12,6 @@ class RegisterRequest extends FormRequest
         return true;
     }
 
-    // Laravel docs-Validation-# Preparing Input for Validation
-    // Так как записи в БД у меня обработаны мутатором, введенные пользователем в форму данные могут не совпадать с БД - из-за этого валидация
-    // 'unique' не работает. Поэтому здесь используется функция prepareForValidation.
-    // С помощью этой функции можно изменить введенные пользователем данные до валидации. В моем случае функция
-    // конвертирует полученный от пользователя номер телефона в подходящий для поиска в БД формат.
-    // Удаляет все символы кроме цифр из ввода, затем добавляет + в начало.
-    // Скопировано из мутатора phone() из модели Client и переделано.
     protected function prepareForValidation(): void
     {
         $phone = $this->request->get('phone');
@@ -31,11 +22,6 @@ class RegisterRequest extends FormRequest
         ]);
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [

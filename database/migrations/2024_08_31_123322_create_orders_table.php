@@ -28,7 +28,7 @@ return new class extends Migration
             // Если имя таблицы и/или PK называются нестандартно или не определяются автоматически,
             // то мы можем указать их вручную - читай документацию. Последний аргумент - действие при удалении
             // материнской таблицы. Подробнее - тот же раздел документации
-            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('client_id')->nullable()->constrained()->nullOnDelete();
 
             $table->string('title')->nullable();
             $table->mediumText('demand')->nullable();

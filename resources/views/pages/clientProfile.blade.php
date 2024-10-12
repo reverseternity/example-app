@@ -6,19 +6,19 @@
     </div>
         <div class="card" style="width: 25rem;">
             <div class="card-body">
-                <h5 class="card-title">{{ $user->name }}</h5>
-                <h6 class="card-subtitle mb-2 text-body-secondary">ID:{{ $user->id }}</h6>
-                <p class="card-text">Номер телефона: {{ $user->phone }}</p>
-                <p class="card-text">Email: {{ $user->email }}</p>
-                <p class="card-text">Место: {{ $user->ip }}</p>
+                <h5 class="card-title">{{ $client->name }}</h5>
+                <h6 class="card-subtitle mb-2 text-body-secondary">ID:{{ $client->id }}</h6>
+                <p class="card-text">Номер телефона: {{ $client->phone }}</p>
+                <p class="card-text">Email: {{ $client->email }}</p>
+                <p class="card-text">Место: {{ $client->ip }}</p>
                 <a href="{{ route('index') }}" class="card-link">Заказы клиента</a>
-                <a href="{{ route('editUserProfile', ['userId' => $user->id]) }}"><button class="btn btn-primary">изменить данные</button></a>
+                <a href="{{ route('editClient', ['clientId' => $client->id]) }}"><button class="btn btn-primary">изменить данные</button></a>
             </div>
         </div>
     <div class="row mb-4">
         <h3 style="...">Заявки клиента</h3>
     </div>
-    @foreach ($user->orders as $order)
+    @foreach ($client->orders as $order)
     <div class="card" style="width: 30rem; margin-bottom: 10px">
         <div class="card-body">
             <h5 class="card-title">{{ $order->title }}</h5>
