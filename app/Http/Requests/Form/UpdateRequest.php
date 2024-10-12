@@ -10,8 +10,8 @@ class UpdateRequest extends FormRequest
     {
         return [
             'name' => 'max:30',
-            'phone' => ['required', 'min:6', 'max:30']
-//            'email' => ['email:dns', 'min:6', 'max:30']
+            'phone' => ['required', 'min:6', 'max:30'],
+            'email' => ['email:dns', 'min:6', 'max:30']
         ];
     }
 }

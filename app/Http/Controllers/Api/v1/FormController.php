@@ -11,7 +11,6 @@ use Illuminate\Http\RedirectResponse;
 class FormController extends Controller
 {
     public function createOrder(SubmitRequest $request)
-//    : RedirectResponse
     {
 // Конвертирует полученный от пользователя номер телефона в подходящий для поиска в БД формат.
 // phoneConvert() - мой собственный метод внутри реквеста SubmitRequest.
@@ -22,9 +21,6 @@ class FormController extends Controller
 // метод first() вызывает конкретную запись для взаимодействия, в отличие от get(), который выводит
 // все записи из таблицы этой модели
         $clientFind = Client::where('phone', $phone)->first();
-
-//        dd($clientFind);
-
 
 //Если в переменной clientFind есть экземпляр (он нашелся по номеру телефона), то данные обновляются
 // по образу и подобию метода updateClient() ниже. Получилось использовать не полную копию - поле

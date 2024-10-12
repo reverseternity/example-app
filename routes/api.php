@@ -30,10 +30,11 @@ Route::controller(FormController::class)->group(function (){
 // этого префикса используется посредник middleware('api). Также указывается путь этому к файлу api.php - именно к маршрутам отсюда
 // будет применяться этот префикс.
 Route::controller(StaffController::class)->middleware('auth:sanctum')->group(function (){
-    Route::get('/crm', 'showCrm');
+    Route::get('/userprofile', 'showUserProfile')->name('api.userProfile');
+    Route::get('/crm', 'showCrm')->name('api.crm');
     Route::get('/crm/{clientId}', 'showClientProfile')->name('api.clientProfile');
-    Route::patch('/forms/{clientId}/updateClient', 'updateClient');
-    Route::delete('/forms/{clientId}/deleteClient', 'deleteClient');
+    Route::patch('/forms/{clientId}/updateClient', 'updateClient')->name('api.updateClient');
+    Route::delete('/forms/{clientId}/deleteClient', 'deleteClient')->name('api.deleteClient');
 });
 
 Route::controller(LoginController::class)->group(function (){

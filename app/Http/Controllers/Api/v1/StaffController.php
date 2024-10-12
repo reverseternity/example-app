@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Api\UserProfileResource;
 use App\Http\Resources\Api\ClientProfileResource;
 use App\Http\Resources\Api\CrmResource;
+use App\Models\User;
 use App\Models\Client;
 use App\Http\Requests\Api\UpdateRequest;
 
@@ -12,6 +14,15 @@ use App\Http\Requests\Api\UpdateRequest;
 // Если на выводе функции мы будем возвращать массив, то laravel автоматически применяет фуккцию-хелпер json_encode().
 class StaffController extends Controller
 {
+    public function showUserProfile() {
+// Комментарий, объясняющий работу ресурсов в методах ниже
+// из хелпера auth() всегда можно получить экземпляр модели user(), к которому относится токен,
+// передаваемый в каждом запросе, маршрут которого требует авторизацию.
+        $user = auth()->user();
+
+        return new UserProfileResource($user);
+    }
+
     public function showCrm()
     {
 // Здесь мы формируем вывод json-массива для отправки на фронтенд. Сначала формируем экземпляр модели со всеми записями с сортировкой,

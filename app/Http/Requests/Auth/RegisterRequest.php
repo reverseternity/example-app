@@ -48,7 +48,6 @@ class RegisterRequest extends FormRequest
             // Правило 'confirmed' работает классно. Оно проверяет совпадение поля {имя поля}_confirmed с
             // основным password. {имя поля} должно совпадать с основным.
             'password' => ['required', 'min:6', 'max:30', 'confirmed']
-
         ];
     }
 }

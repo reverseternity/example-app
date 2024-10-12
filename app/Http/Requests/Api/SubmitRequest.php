@@ -4,6 +4,8 @@ namespace App\Http\Requests\Api;
 
 // Здесь нестандартная ситуация - наш кастомный реквест наследуется не от стандартного род.класса FormRequest, а от добавленного нами
 // ApiRequest. Внутри есть переназначенный метод failedValidation(). Больше комментариев внизу класса при rules().
+use Illuminate\Validation\Rule;
+
 class SubmitRequest extends ApiRequest
 {
     /**
@@ -20,6 +22,7 @@ class SubmitRequest extends ApiRequest
             'title' => $this->input('title'),
             'name' => $this->input('name'),
             'phone' => $this->input('phone'),
+            'email' => $this->input('email'),
             'demand' => $this->input('demand'),
             'date' => $this->input('date'),
             'time' => $this->input('time'),
@@ -46,12 +49,16 @@ class SubmitRequest extends ApiRequest
     public function rules(): array
     {
         return [
+            'title' => ['string', 'max:50'],
             'name' => 'max:30',
             'phone' => ['required', 'min:6', 'max:30'],
 //            'email' => ['email:rfc,dns', 'min:6', 'max:30'],
             'demand' => 'max:250',
             'date' => 'max:10',
-            'time' => 'max:10'
+            'time' => 'max:10',
+// С помощью метода in() класса Rule создается кастомное правило - ввод должен полностью соответствовать ему.
+            'contact' => Rule::in(['personally', 'call', 'videocall']),
+            'ip' => 'ip'
         ];
     }
 }

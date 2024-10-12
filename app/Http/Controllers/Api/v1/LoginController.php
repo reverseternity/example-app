@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api\v1;
 
+use App\Exceptions\Auth\InvalidCredentialsException;
+use App\Exceptions\Auth\NotApprovedException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\LoginRequest;
 use App\Models\Token;
@@ -34,10 +36,13 @@ class LoginController extends Controller
 
                 return response()->json(['token' => $token->plainTextToken]);
             } else {
-                return response()->json(['message' => 'Неверные данные. Проверьте правильность телефона или пароля'], 401);
+//                return response()->json(['message' => 'Неверные данные. Проверьте правильность телефона или пароля'], 401);
+//
+                throw new InvalidCredentialsException();
             }
         } else {
-            return response()->json(['message' => 'Ошибка. Вы сможете войти в систему после регистрации и одобрения администратором.'], 401);
+//            return response()->json(['message' => 'Ошибка. Вы сможете войти в систему после регистрации и одобрения администратором.'], 401);
+            throw new NotApprovedException();
         }
     }
 
